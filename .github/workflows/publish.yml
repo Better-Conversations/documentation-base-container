@@ -35,5 +35,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${better-conversations/documentation-base-container}:latest
-            ghcr.io/${better-conversations/documentation-base-container}:${{ github.sha }} 
+            ghcr.io/better-conversations/documentation-base-container:latest
+            ghcr.io/better-conversations/documentation-base-container:${{ github.sha }} 
