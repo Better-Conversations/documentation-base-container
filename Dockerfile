@@ -16,11 +16,11 @@ RUN apt-get update && \
         texlive-latex-extra \
         texlive-fonts-recommended \
         ca-certificates \
-        build-essential \
-        git rsync openssh-client \
+        build-essential
+RUN apt-get update && apt-get install -y git rsync openssh-client netcat
     # Clean up apt cache
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    # && apt-get clean \
+    # && rm -rf /var/lib/apt/lists/*
 
 # Make Python installed by uv available globally
 ENV PATH="/root/.local/bin:$PATH"
