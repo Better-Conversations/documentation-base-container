@@ -17,6 +17,7 @@ RUN apt-get update && \
         texlive-fonts-recommended \
         ca-certificates \
         build-essential \
+        git rsync openssh-client \
     # Clean up apt cache
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
