@@ -15,6 +15,7 @@ RUN apt-get update && \
         texlive-latex-recommended \
         texlive-latex-extra \
         texlive-fonts-recommended \
+        latexmk \
         ca-certificates \
         build-essential
 RUN apt-get update && apt-get install -y git rsync openssh-client netcat
