@@ -22,6 +22,11 @@ RUN apt-get update && apt-get install -y git rsync openssh-client netcat
     # && apt-get clean \
     # && rm -rf /var/lib/apt/lists/*
 
+# Install Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g @mermaid-js/mermaid-cli
+
 # Make Python installed by uv available globally
 ENV PATH="/root/.local/bin:$PATH"
 # Tell uv which Python version to use by default
