@@ -12,6 +12,9 @@ RUN apt-get update && \
         curl \
         sudo \
         texlive-full \
+        tex-gyre \
+        texlive-fonts-extra \
+        texlive-fonts-recommended \
         ca-certificates \
         build-essential
 RUN apt-get update && apt-get install -y git rsync openssh-client netcat
