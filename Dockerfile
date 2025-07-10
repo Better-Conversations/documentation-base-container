@@ -6,26 +6,35 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Copy uv binary
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Install dependencies using apt-get (excluding Python) and install Python with uv
+# Install basic dependencies first
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         curl \
         sudo \
+        ca-certificates \
+        build-essential \
+        git \
+        rsync \
+        openssh-client \
+        netcat 
+
+# Install TeX packages with workarounds for tex-common issues
+RUN apt-get update && \
+    # Pre-configure tex-common to avoid interactive prompts
+    echo "tex-common tex-common/singleuser boolean true" | debconf-set-selections && \
+    # Install texlive-full and related packages
+    apt-get install -y --no-install-recommends \
         texlive-full \
         tex-gyre \
         texlive-fonts-extra \
-        texlive-fonts-recommended \
-        ca-certificates \
-        build-essential
-RUN apt-get update && apt-get install -y git rsync openssh-client netcat
-    # Clean up apt cache
-    # && apt-get clean \
-    # && rm -rf /var/lib/apt/lists/*
+        texlive-fonts-recommended && \
+    # Run mktexlsr to update TeX database
+    mktexlsr 
 
-# Install Node.js and npm
+# Install Mermaid, Chromium, and Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g @mermaid-js/mermaid-cli
+    apt-get install -y nodejs chromium chromium-driver && \
+    npm install -g @mermaid-js/mermaid-cli 
 
 # Make Python installed by uv available globally
 ENV PATH="/root/.local/bin:$PATH"
